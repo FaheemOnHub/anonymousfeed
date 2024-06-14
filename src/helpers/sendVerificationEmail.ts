@@ -14,7 +14,7 @@ export default async function sendVerificationEmail(
       to: "email",
       from: "",
       subject: "Verify your email address",
-      react: VerificationEmail({ username: "John", otp: "123456" }),
+      react: VerificationEmail({ username, otp: verifyCode }),
     });
     return { success: true, message: "Verification email sent." };
   } catch (error) {

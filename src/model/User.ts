@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, mongo } from "mongoose";
+import { boolean } from "zod";
 
 // Define TypeScript interface for Message document
 export interface Message extends Document {
@@ -25,6 +26,7 @@ export interface User extends Document {
   password: string;
   verifyCode: string;
   verifyCodeExpiry: Date;
+  isVerified: boolean;
   isAcceptingMessage: boolean;
   messages: Message[];
 }
@@ -50,6 +52,10 @@ const UserSchema: Schema<User> = new Schema({
     type: String,
     required: true,
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   verifyCodeExpiry: {
     type: Date,
     required: true,
@@ -69,4 +75,4 @@ const MessageModel =
   (mongoose.models.Message as mongoose.Model<Message>) ||
   mongoose.model<Message>("Message", MessageSchema);
 
-export default { UserModel, MessageModel };
+export { UserModel, MessageModel };
